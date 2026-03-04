@@ -1,5 +1,6 @@
 // admin email to receive notifications
 const ADMIN_EMAIL = Session.getEffectiveUser().getEmail();
+const SENDER_EMAIL = 'mailer@atlasdestinations.com';
 const SPREADSHEET_ID = '1aBrA024qHdyq-ly5aL7JHi61AfUvc8ZsRVgYMS6IvfE';
 const SHEET_NAME = 'Submissions';
 const HEADERS = ['Timestamp', 'Type', 'Name', 'Email', 'Source'];
@@ -34,11 +35,12 @@ name: ${p.name || ''}
 email: ${p.email || ''}
 source: ${p.source || ''}`;
 
-  MailApp.sendEmail({
-    to: ADMIN_EMAIL,
-    subject: `new ${p.type || 'partner'} form submission - ${p.name || 'unknown'}`,
-    body: emailBody
-  });
+  GmailApp.sendEmail(
+    ADMIN_EMAIL,
+    `new ${p.type || 'partner'} form submission - ${p.name || 'unknown'}`,
+    emailBody,
+    { from: SENDER_EMAIL }
+  );
 
   // return success response
   return ContentService

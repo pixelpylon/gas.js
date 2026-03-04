@@ -1,5 +1,6 @@
 // admin email to receive notifications
 const ADMIN_EMAIL = Session.getEffectiveUser().getEmail();
+const SENDER_EMAIL = 'mailer@atlasdestinations.com';
 const SPREADSHEET_ID = '11uS02egal1cP3KYhcRoBJ_c3qsYqRWKMjwi_U7nwr9c';
 
 // setup form endpoint
@@ -41,11 +42,12 @@ email: ${p.email || ''}
 website: ${p.domain || ''}
 message: ${p.message || ''}`;
 
-  MailApp.sendEmail({
-    to: ADMIN_EMAIL,
-    subject: `new ${p.type || 'contact'} form submission - ${p.name || 'unknown'}`,
-    body: emailBody
-  });
+  GmailApp.sendEmail(
+    ADMIN_EMAIL,
+    `new ${p.type || 'contact'} form submission - ${p.name || 'unknown'}`,
+    emailBody,
+    { from: SENDER_EMAIL }
+  );
 
   // return success response
   return ContentService
