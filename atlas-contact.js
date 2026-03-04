@@ -43,7 +43,7 @@ message: ${p.message || ''}`;
 
   MailApp.sendEmail({
     to: ADMIN_EMAIL,
-    subject: 'new contact form submission',
+    subject: `new ${p.type || 'contact'} form submission - ${p.name || 'unknown'}`,
     body: emailBody
   });
 

@@ -36,7 +36,7 @@ source: ${p.source || ''}`;
 
   MailApp.sendEmail({
     to: ADMIN_EMAIL,
-    subject: 'new partner form submission',
+    subject: `new ${p.type || 'partner'} form submission - ${p.name || 'unknown'}`,
     body: emailBody
   });
 
